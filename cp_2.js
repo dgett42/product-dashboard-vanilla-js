@@ -43,7 +43,7 @@ function displayProducts(products) {
 
         const name = prod.name || prod.fields?.name || 'Unnamed product';
 
-        // try several common image shapes
+        
         const imgSrc =
             (typeof prod.image === 'string' && prod.image) ||
             prod.image?.url ||
@@ -55,7 +55,7 @@ function displayProducts(products) {
         const rawPrice = prod.price ?? prod.fields?.price ?? null;
         let priceText = 'Price unavailable';
         if (typeof rawPrice === 'number') {
-            // many APIs provide price in cents
+            
             priceText = rawPrice > 1000 ? `$${(rawPrice / 100).toFixed(2)}` : `$${rawPrice}`;
         } else if (typeof rawPrice === 'string' && rawPrice.trim()) {
             priceText = rawPrice;
@@ -82,3 +82,11 @@ function displayProducts(products) {
         container.appendChild(card);
     }
 }
+
+function handleError(error) {
+    const message = error && error.message ? error.message : String(error);
+    console.error(`An error occurred: ${message}`);
+}
+
+fetchProductsThen();
+fetchProductsAsync();
